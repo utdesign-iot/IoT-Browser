@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="activities.MainActivity">
+
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search_white"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item android:id="@+id/action_camera"
+        android:title="Camera"
+        android:icon="@drawable/ic_camera_white"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_settings"
+          android:title="Settings"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/action_edit_urls"
+        android:title="Edit URLs"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_about"
+        android:title="About"
+        app:showAsAction="never"/>
+</menu>

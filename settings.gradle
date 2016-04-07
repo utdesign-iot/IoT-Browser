@@ -1,0 +1,1 @@
+include ':app', ':uribeacon-library-release', ':volley', ':libs', ':zbar'

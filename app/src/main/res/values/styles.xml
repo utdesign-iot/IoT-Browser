@@ -1,0 +1,106 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/green_dark</item>
+        <item name="colorPrimaryDark">@color/orange_dark</item>
+        <item name="colorAccent">@color/green_light</item>
+    </style>
+
+    <!-- physical-web package -->
+    <style name="RobotoEditTextStyle" parent="android:Widget.EditText">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="CustomAppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:actionOverflowButtonStyle">@style/ActionBar.OverFlow</item>
+        <item name="android:itemTextAppearance">@style/ActionBar.MenuItemTextAppearance</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:popupMenuStyle">@style/ActionBar.PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/ActionBar.PopupMenuListView</item>
+    </style>
+
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/action_bar_background_color</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+        <item name="android:icon">@android:color/transparent</item>
+
+    </style>
+
+    <style name="ActionBar.TitleTextStyle"
+        parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/action_bar_title_text_color</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="ActionBar.OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/settings_xxhdpi</item>
+    </style>
+
+    <style name="ActionBar.PopupMenu" parent="@android:style/Widget.Holo.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_item_background</item>
+    </style>
+
+    <style name="ActionBar.MenuItemTextAppearance">
+        <item name="android:textColor">@color/menu_item_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ActionBar.PopupMenuListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">#FFFFFF</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="Theme.NoActionBar" parent="@style/Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+    <!-- qrcode package -->
+
+    <style name="AppThemeQRCode" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <!-- darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields e.g. FloatActionButton -->
+        <item name="colorAccent">@color/accent</item>
+        <!-- Title Text Color -->
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <!-- color of the menu overflow icon (three vertical dots) -->
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="AppOverlayTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <!-- darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields e.g. FloatActionButton -->
+        <item name="colorAccent">@color/accent</item>
+        <!-- Title Text Color -->
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <!-- color of the menu overflow icon (three vertical dots) -->
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+    </style>
+
+    <style name="TransparentToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay" tools:ignore="NewApi">true</item>
+        <!-- Support Library compability -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+
+
+
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.utdesign.iot.baseui">
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- This is required for the scan library. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="activities.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="activities.AboutActivity" />
+        <activity android:name="activities.BrowserActivity" />
+
+        <service
+            android:name="org.physical_web.physicalweb.PwoDiscoveryService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="org.physical_web.physicalweb.ScreenListenerService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <receiver
+            android:name="org.physical_web.physicalweb.AutostartPwoDiscoveryServiceReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- This is required for the scan library. -->
+        <service
+            android:name="org.uribeacon.scan.compat.ScanWakefulService"
+            android:exported="false">
+        </service>
+        <service
+            android:name="org.uribeacon.config.GattService"
+            android:exported="false">
+        </service>
+
+        <!-- This is required for the scan library. -->
+        <receiver android:name="org.uribeacon.scan.compat.ScanWakefulBroadcastReceiver">
+        </receiver>
+
+        <activity
+            android:name="org.physical_web.physicalweb.OobActivity"
+            android:label="@string/title_activity_oob"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoActionBar">
+        </activity>
+
+        <!-- This is required for qrcode. -->
+        <activity android:name="qrcode.QRCSSMainActivity"
+            android:theme="@style/AppOverlayTheme"
+            android:label="@string/simple_scanner_activity">
+        </activity>
+
+
+
+    </application>
+
+</manifest>

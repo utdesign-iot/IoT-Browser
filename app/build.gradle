@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.example.todd.baseui"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    sourceSets {
+        main.jniLibs.srcDirs = ['src/main/res/jniLibs']
+        test.jniLibs.srcDirs = ['src/main/res/jniLibs']
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:design:22.2.0'
+    compile project(':uribeacon-library-release')
+    compile project(':volley')
+    compile 'com.android.support:recyclerview-v7:24.0.0-alpha1'
+    compile files('build/intermediates/exploded-aar/Bluetooth-master/core/1.8.4/jars/classes.jar')
+    compile project(':zbar')
+    compile files('libs/android-support-v4.jar')
+    compile files('libs/zbar.jar')
+}
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Account">
+            <menu>
+                <item
+                    android:orderInCategory="0"
+                    android:id="@+id/navigation_item_profile"
+                    android:icon="@drawable/ic_profile"
+                    android:title="Profile" />
+                <item
+                    android:orderInCategory="0"
+                    android:id="@+id/navigation_item_devices"
+                    android:icon="@drawable/ic_device_hub_black"
+                    android:title="My Devices"/>
+                <item
+                    android:orderInCategory="0"
+                    android:id="@+id/navigation_item_connections"
+                    android:icon="@drawable/ic_apps_white"
+                    android:title="Connections" />
+                <item
+                    android:orderInCategory="0"
+                    android:id="@+id/navigation_item_services"
+                    android:icon="@drawable/ic_services"
+                    android:title="Services" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single" >
+        <item android:title="Locations">
+            <menu>
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Near By" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_home"
+                    android:title="Home" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 1" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 2" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 3" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 4" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 5" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 6" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 7" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 8" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 9" />
+                <item
+                    android:orderInCategory="1"
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 10" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

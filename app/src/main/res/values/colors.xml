@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green_dark">#008442</color>
+    <color name="orange_dark">#c96012</color>
+    <color name="green_light">#40a12e</color>
+    <color name="orange_light">#fd812e</color>
+    <color name="alt_row">#ededed</color>
+
+    <!-- physical-web package -->
+    <color name="header_color">#1C47C1</color>
+    <color name="url_color">#099F39</color>
+    <color name="description_color">#545454</color>
+    <color name="config_save_url_button">#4285f4</color>
+    <color name="menu_item_text_color">#333333</color>
+    <color name="action_bar_title_text_color">#5A5A5A</color>
+    <color name="action_bar_background_color">#FFFFFF</color>
+    <color name="swipe_refresh_widget_first_color">#70a2d3</color>
+    <color name="swipe_refresh_widget_second_color">#c2c2c2</color>
+
+
+
+    <!-- qrcode package before in opacity #33000000-->
+    <color name="actionbar_opacity">#C5CAE9</color>
+    <color name="primary">#b0b4c8</color>
+    <color name="primary_dark">#28303f9f</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#E040FB</color>
+    <color name="primary_text">#27865a5a</color>
+    <color name="secondary_text">#24727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color>
+    <color name="viewfinder_border">#ffafed44</color>
+    <color name="foreground_material_light">#13000000</color>
+    <color name="black">#31000000</color>
+    <color name="background_material_light">#30817878</color>
+    <color name="colorBackground">#0b817878</color>
+
+</resources>
