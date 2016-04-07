@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 import com.utdesign.iot.baseui.R;
 
 /**
+ * This is a test commit
  * Created by Todd on 2/27/2016.
  */
 public class AboutActivity extends AppCompatActivity {
