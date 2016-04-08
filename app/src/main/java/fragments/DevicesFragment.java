@@ -54,16 +54,16 @@ public class DevicesFragment extends Fragment {
         this.adapter = adapter;
     }
 
-    public DevicesAdapter getDevicesAdapter() {
+    public NearbyBeaconsFragment.NearbyBeaconsAdapter getDevicesAdapter() {
         // this is to ensure, whenever the devices tab gets closed
         // (because the user is 2 tabs away, thus, this tab doesn't need to be opened and is closed)
         // the devicesadapter does not get cleared.
         // however, if the devicesadapter doesn't exist yet, this will create a new one.
-        if(devicesAdapter == null)
+        /*if(devicesAdapter == null)
         {
             devicesAdapter = new DevicesAdapter(getActivity(), devices);
-        }
-        return devicesAdapter;
+        }*/
+        return adapter;
     }
 
     @Override

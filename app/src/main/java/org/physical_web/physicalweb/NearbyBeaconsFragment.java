@@ -42,6 +42,8 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -395,15 +397,19 @@ public class NearbyBeaconsFragment extends ListFragment
   }
 
   // Adapter for holding beacons found through scanning.
-  public class NearbyBeaconsAdapter extends BaseAdapter {
+  public class NearbyBeaconsAdapter extends BaseAdapter implements Filterable{
     public BeaconDisplayList mBeaconDisplayList;
+    public BeaconDisplayList mBeaconFilterList;
+    NearbyBeaconsFilter nearbyBeaconsFilter;
 
     NearbyBeaconsAdapter() {
       mBeaconDisplayList = new BeaconDisplayList();
+      mBeaconFilterList = new BeaconDisplayList();
     }
 
     public void addItem(PwoMetadata pwoMetadata) {
         mBeaconDisplayList.addItem(pwoMetadata);
+        mBeaconFilterList.addItem(pwoMetadata);
         Log.d(TAG, pwoMetadata.getUrl());
     }
 
@@ -548,8 +554,52 @@ public class NearbyBeaconsFragment extends ListFragment
       notifyDataSetChanged();
     }
 
+    @Override
+    public Filter getFilter() {
+      if(nearbyBeaconsFilter == null)
+      {
+        nearbyBeaconsFilter = new NearbyBeaconsFilter();
+      }
+
+      return nearbyBeaconsFilter;
+    }
+
     public BeaconDisplayList getList() {
       return mBeaconDisplayList;
+    }
+
+    class NearbyBeaconsFilter extends Filter {
+
+      @Override
+      protected FilterResults performFiltering(CharSequence constraint) {
+        FilterResults filterResults = new FilterResults();
+        if(constraint.length() > 0) {
+          constraint = constraint.toString().toLowerCase();
+          BeaconDisplayList filters = new BeaconDisplayList();
+
+          for(int i = 0; i < mBeaconFilterList.size(); i++) {
+
+            String device = mBeaconFilterList.getItem(i).urlMetadata.title;
+            if(device.toLowerCase().contains(constraint)){
+              filters.addItem(mBeaconFilterList.getItem(i));
+            }
+          }
+
+          filterResults.count = filters.size();
+          filterResults.values = filters;
+        } else {
+          filterResults.count = mBeaconFilterList.size();
+          filterResults.values = mBeaconFilterList;
+        }
+
+        return filterResults;
+      }
+
+      @Override
+      protected void publishResults(CharSequence constraint, FilterResults results) {
+        mBeaconDisplayList = (BeaconDisplayList) results.values;
+        notifyDataSetChanged();
+      }
     }
   }
 }
