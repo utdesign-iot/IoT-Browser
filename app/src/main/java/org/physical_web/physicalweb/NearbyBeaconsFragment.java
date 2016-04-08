@@ -579,7 +579,11 @@ public class NearbyBeaconsFragment extends ListFragment
 
           for(int i = 0; i < mBeaconFilterList.size(); i++) {
 
-            String device = mBeaconFilterList.getItem(i).urlMetadata.title;
+            PwoMetadata metadata = mBeaconFilterList.getItem(i);
+            if(metadata.urlMetadata == null)
+              continue;
+
+            String device = metadata.urlMetadata.title;
             if(device.toLowerCase().contains(constraint)){
               filters.addItem(mBeaconFilterList.getItem(i));
             }
