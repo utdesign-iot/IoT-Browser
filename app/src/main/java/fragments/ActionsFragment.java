@@ -20,13 +20,34 @@ import listitems.Action;
 
 public class ActionsFragment extends Fragment {
     ListView listView;
+    public ViewGroup.LayoutParams toolbarParams;
     String[] actionNames = {
+            "Not Home",
+            "Movie Time",
+            "Spring Season",
+            "Babysitting Crystal's Cat",
+            "Dinner Date with Bae",
+            "Not Home",
+            "Movie Time",
+            "Spring Season",
+            "Babysitting Crystal's Cat",
+            "Dinner Date with Bae",
             "Not Home",
             "Movie Time",
             "Spring Season",
             "Babysitting Crystal's Cat",
             "Dinner Date with Bae"};
     int[] icons = {
+            R.mipmap.ic_security_shield,
+            R.mipmap.ic_movie,
+            R.mipmap.ic_flower,
+            R.mipmap.ic_pets,
+            R.mipmap.ic_sofa,
+            R.mipmap.ic_security_shield,
+            R.mipmap.ic_movie,
+            R.mipmap.ic_flower,
+            R.mipmap.ic_pets,
+            R.mipmap.ic_sofa,
             R.mipmap.ic_security_shield,
             R.mipmap.ic_movie,
             R.mipmap.ic_flower,
@@ -43,6 +64,14 @@ public class ActionsFragment extends Fragment {
             Action action = new Action(actionNames[i], icons[i]);
             actions.add(action);
         }
+    }
+
+    public void setLayoutParams()
+    {
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = listView.getHeight() - toolbarParams.height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     @Override
@@ -64,6 +93,13 @@ public class ActionsFragment extends Fragment {
             }
         });
 
+        listView.post(new Runnable() {
+            @Override
+            public void run() {
+                setLayoutParams();
+            }
+        });
+
         return view;
     }
 
@@ -74,4 +110,5 @@ public class ActionsFragment extends Fragment {
         }
         return actionsAdapter;
     }
+
 }
