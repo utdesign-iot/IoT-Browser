@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.utdesign.iot.baseui.R;
@@ -110,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
+        devicesFragment.toolbarParams = mToolbar.getLayoutParams();
+        actionsFragment.toolbarParams = mToolbar.getLayoutParams();
 
 //        getFragmentManager().beginTransaction()
 //                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(actionsFragment, "Actions");
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setAdapter(adapter);
-        mTabLayout = (TabLayout)findViewById(R.id.tablayout);
+        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager);
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
@@ -230,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ public class DevicesFragment extends Fragment {
     ListView listView;
     public NearbyBeaconsFragment.NearbyBeaconsAdapter adapter;
     public DevicesAdapter devicesAdapter;
+    public ViewGroup.LayoutParams toolbarParams;
     String[] deviceNames = {
             "Humpus Wumpus",
             "Candy Man",
@@ -47,11 +49,18 @@ public class DevicesFragment extends Fragment {
         for(int i = 0; i < deviceNames.length; i++) {
             devices.add(new Device(deviceNames[i], imageIds[i], descriptions[i]));
         }
-
     }
 
     public void setAdapter(NearbyBeaconsFragment.NearbyBeaconsAdapter adapter) {
         this.adapter = adapter;
+    }
+
+    public void setLayoutParams()
+    {
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = listView.getHeight() - toolbarParams.height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     public NearbyBeaconsFragment.NearbyBeaconsAdapter getDevicesAdapter() {
@@ -86,6 +95,14 @@ public class DevicesFragment extends Fragment {
             }
         });
 
+        listView.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                setLayoutParams();
+            }
+        });
 
         return rootView;
     }
