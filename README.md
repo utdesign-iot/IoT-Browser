@@ -1,3 +1,1 @@
-QRCode
-Lance's thing
-Initial Commit
+Internet of Things Browser
