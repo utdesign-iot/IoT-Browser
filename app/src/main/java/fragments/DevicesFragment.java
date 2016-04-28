@@ -18,15 +18,14 @@ import org.physical_web.physicalweb.NearbyBeaconsFragment;
 import java.util.ArrayList;
 
 import activities.BrowserActivity;
+import activities.MainActivity;
 import listadapters.DevicesAdapter;
 import listitems.Device;
 
 public class DevicesFragment extends Fragment {
-    public final static String URL = "http://ecs.utdallas.edu";
     ListView listView;
     public NearbyBeaconsFragment.NearbyBeaconsAdapter adapter;
     public DevicesAdapter devicesAdapter;
-    public ViewGroup.LayoutParams toolbarParams;
     String[] deviceNames = {
             "Humpus Wumpus",
             "Candy Man",
@@ -53,14 +52,6 @@ public class DevicesFragment extends Fragment {
 
     public void setAdapter(NearbyBeaconsFragment.NearbyBeaconsAdapter adapter) {
         this.adapter = adapter;
-    }
-
-    public void setLayoutParams()
-    {
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = listView.getHeight() - toolbarParams.height;
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
 
     public NearbyBeaconsFragment.NearbyBeaconsAdapter getDevicesAdapter() {
@@ -90,17 +81,8 @@ public class DevicesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), BrowserActivity.class);
-                intent.putExtra(URL, adapter.getList().getItem(position).getUrl());
+                intent.putExtra(MainActivity.URL, adapter.getList().getItem(position).getUrl());
                 startActivity(intent);
-            }
-        });
-
-        listView.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                setLayoutParams();
             }
         });
 

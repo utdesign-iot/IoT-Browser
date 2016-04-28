@@ -31,7 +31,6 @@ public class ActionsFragment extends Fragment
 {
     //Start of Variable Declarations.
     ListView listView;
-    public ViewGroup.LayoutParams toolbarParams;
     String[] actionNames =
             {
                     "Lights Out: Turn off both lights.",//position 0
@@ -253,13 +252,6 @@ public class ActionsFragment extends Fragment
             }//end of onItemClick void method.
 
         });//end of setOnItemClickListener method call for listView.
-
-        listView.post(new Runnable() {
-            @Override
-            public void run() {
-                setLayoutParams();
-            }
-        });
         //last to do -> return the view.
         return view;
 
@@ -279,14 +271,6 @@ public class ActionsFragment extends Fragment
         return actionsAdapter;
 
     }//End of getActionsAdapter method.
-
-    public void setLayoutParams()
-    {
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = listView.getHeight() - toolbarParams.height;
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
 
     //Inner Class HttpPost which extends Async.
     private class HttpPost extends AsyncTask<String, Void, Void>

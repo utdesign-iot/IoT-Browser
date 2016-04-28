@@ -18,7 +18,7 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activty);
 
-        String url = getIntent().getStringExtra(DevicesFragment.URL);
+        String url = getIntent().getStringExtra(MainActivity.URL);
 
         //THIS GOOGLE ADDRESS IS FOR TESTING PURPOSES ONLY.
         //url = "http://www.google.com";
