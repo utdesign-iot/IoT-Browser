@@ -44,7 +44,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
+        android:checked="false"
         android:id="@+id/action_checkbox"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />

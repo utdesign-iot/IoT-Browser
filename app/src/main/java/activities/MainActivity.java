@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         return true;
     }
 
@@ -326,7 +327,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause()
     {
         super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
+        if(nfcAdapter != null && nfcAdapter.isEnabled())
+            nfcAdapter.disableForegroundDispatch(this);
     }
 
     @Override
