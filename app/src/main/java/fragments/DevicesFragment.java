@@ -54,6 +54,11 @@ public class DevicesFragment extends Fragment {
         this.adapter = adapter;
     }
 
+    public NearbyBeaconsFragment.NearbyBeaconsAdapter getAdapter(){
+        return adapter;
+    }
+
+
     public NearbyBeaconsFragment.NearbyBeaconsAdapter getDevicesAdapter() {
         // this is to ensure, whenever the devices tab gets closed
         // (because the user is 2 tabs away, thus, this tab doesn't need to be opened and is closed)

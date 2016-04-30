@@ -302,24 +302,14 @@ public class MainActivity extends AppCompatActivity {
             nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
             nearbyAdapter = nearbyBeaconsFragment.getAdapter();
             nearbyList = nearbyAdapter.getList();
-            devicesFragment.setAdapter(nearbyAdapter);
+
+            if(devicesFragment.getAdapter() == null)
+                devicesFragment.setAdapter(nearbyAdapter);
+
             nearbyAdapter.notifyDataSetChanged();
 
-
-            //PwoMetadata nearbyItem = nearbyList.getItem(0);
-            //Log.d("Nearby List Url:", nearbyItem.getUrl());
-            //DevicesAdapter devicesAdapter = devicesFragment.devicesAdapter;
-            //ArrayList<Device> devices = devicesFragment.devices;
-            //devicesFragment.devices.clear();
-            //devicesFragment.devices.add(new Device("Device 0", 0, "http://utdallas.edu/~txt103120"));
             Intent intent = new Intent(this, ScreenListenerService.class);
             startService(intent);
-            //devicesFragment.devices.add(new Device("Device 1", 1, nearbyList.getItem(0).getUrl()));
-        //} else {
-            // Show the oob activity
-            //Intent intent = new Intent(this, OobActivity.class);
-            //startActivity(intent);
-        //}
     }
 
     @Override
