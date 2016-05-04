@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
+            <!--
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:src="@drawable/ic_add_white"
                 android:scaleType="center"/>
-
+            -->
         </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView

@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        // this initializes the navigation drawer.
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,20 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
             }
         });
-
+        */
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
-
-//        getFragmentManager().beginTransaction()
-//                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
-//                .commit();
-//        getFragmentManager().executePendingTransactions();
-//        nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
-//        nearbyAdapter = nearbyBeaconsFragment.getAdapter();
-        //devicesFragment.setAdapter(nearbyAdapter);
-        //nearbyList = nearbyAdapter.getList();
-
         adapter.addFragment(devicesFragment, "Devices");
         adapter.addFragment(actionsFragment, "Actions");
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
@@ -140,9 +132,8 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        // sets the query hint depending on the current tab you're on.
         mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
-            // this anonymous class doesn't get called until after onCreateOptionsMenu()
-            // Thus, searchView is already initialized.
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
@@ -171,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // checks if bluetooth is enabled.
     private void ensureBluetoothIsEnabled(BluetoothAdapter bluetoothAdapter) {
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -183,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
-
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         //since we start highlighted at item 0
         searchView.setQueryHint("Search Devices...");
@@ -277,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // if nfc adapter is null, then it means that the device does not have an nfcAdapter.
         if(nfcAdapter != null && nfcAdapter.isEnabled())
         {
             Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
@@ -293,24 +285,23 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-        //if (checkIfUserHasOptedIn()) {
-            ensureBluetoothIsEnabled(btAdapter);
-            //showNearbyBeaconsFragment();
-            getFragmentManager().beginTransaction()
-                    .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
-                    .commit();
-            getFragmentManager().executePendingTransactions();
-            nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
-            nearbyAdapter = nearbyBeaconsFragment.getAdapter();
-            nearbyList = nearbyAdapter.getList();
 
-            if(devicesFragment.getAdapter() == null)
-                devicesFragment.setAdapter(nearbyAdapter);
+        ensureBluetoothIsEnabled(btAdapter);
+        getFragmentManager().beginTransaction()
+                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
+                .commit();
+        getFragmentManager().executePendingTransactions();
+        nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
+        nearbyAdapter = nearbyBeaconsFragment.getAdapter();
+        nearbyList = nearbyAdapter.getList();
 
-            nearbyAdapter.notifyDataSetChanged();
+        if(devicesFragment.getAdapter() == null)
+            devicesFragment.setAdapter(nearbyAdapter);
 
-            Intent intent = new Intent(this, ScreenListenerService.class);
-            startService(intent);
+        nearbyAdapter.notifyDataSetChanged();
+
+        Intent intent = new Intent(this, ScreenListenerService.class);
+        startService(intent);
     }
 
     @Override
@@ -364,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (UnsupportedEncodingException e)
         {
+            e.printStackTrace();
         }
         return tagContent;
     }

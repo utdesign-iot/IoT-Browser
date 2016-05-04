@@ -20,9 +20,6 @@ public class BrowserActivity extends AppCompatActivity {
 
         String url = getIntent().getStringExtra(MainActivity.URL);
 
-        //THIS GOOGLE ADDRESS IS FOR TESTING PURPOSES ONLY.
-        //url = "http://www.google.com";
-
         //FOR QR CODE.
         if (QRCSSMainActivity.QRWebAddressFlag)
         {
