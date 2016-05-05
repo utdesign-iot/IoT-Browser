@@ -10,7 +10,7 @@ import com.utdesign.iot.baseui.R;
 
 import java.util.ArrayList;
 
-
+//FUTURE IMPLEMENTATION.
 public class QRCFSDFragment extends DialogFragment {
     public interface FormatSelectorDialogListener {
         public void onFormatsSaved(ArrayList<Integer> selectedIndices);

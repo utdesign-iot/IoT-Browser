@@ -10,13 +10,17 @@ import com.utdesign.iot.baseui.R;
 
 import activities.BrowserActivity;
 
-
-public class QRCSSMainActivity extends QRCBSActivity implements QScanV.ResultHandler {
+//This is the main QR code activity that creates the scanner activity and sends result to webviewer activity.
+public class QRCSSMainActivity extends QRCBSActivity implements QScanV.ResultHandler
+{
+    //this flag is whether or not we got a web address.
     public static Boolean QRWebAddressFlag = false;
+    //to hold scanned code.
     private QScanV mScannerView;
 
     @Override
-    public void onCreate(Bundle state) {
+    public void onCreate(Bundle state) //on startup do this.
+    {
         super.onCreate(state);
         setContentView(R.layout.activity_simple_scanner);
         setupToolbar();
@@ -26,20 +30,23 @@ public class QRCSSMainActivity extends QRCBSActivity implements QScanV.ResultHan
     }
 
     @Override
-    public void onResume() {
+    public void onResume() //do this when resuming activity.
+    {
         super.onResume();
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
     }
 
     @Override
-    public void onPause() {
+    public void onPause() //on pause activity do this.
+    {
         super.onPause();
         mScannerView.stopCamera();
     }
 
     @Override
-    public void handleResult(QResult rawQResult) {
+    public void handleResult(QResult rawQResult) //take result and attempt to send to webviewer activity.
+    {
 
         //TESTING PURPOSES ONLY, WILL LAUNCH DEVICE WEB BROWSER.
         //Toast.makeText(this, "Contents = " + rawQResult.getContents() + ", Format = " + rawQResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
@@ -62,9 +69,11 @@ public class QRCSSMainActivity extends QRCBSActivity implements QScanV.ResultHan
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
         // * I don't know why this is the case but I don't have the time to figure out.
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 mScannerView.resumeCameraPreview(QRCSSMainActivity.this);
             }
         }, 2000);

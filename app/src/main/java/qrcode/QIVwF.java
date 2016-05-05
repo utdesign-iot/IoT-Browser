@@ -3,7 +3,10 @@ package qrcode;
 
 import android.graphics.Rect;
 
-public interface QIVwF {
+
+//This is an interface for the qr code reader View Finder.
+public interface QIVwF
+{
     /**
      * Method that executes when Camera preview is starting.
      * It is recommended to update framing rect here and invalidate view after that. <br/>

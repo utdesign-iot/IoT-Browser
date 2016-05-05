@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
+//FUTURE IMPLEMENTATIN.
 public class QRCMDFragment extends DialogFragment {
     public interface MessageDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);

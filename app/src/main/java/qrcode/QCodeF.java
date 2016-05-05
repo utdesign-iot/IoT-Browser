@@ -5,11 +5,14 @@ import net.sourceforge.zbar.Symbol;
 import java.util.List;
 import java.util.ArrayList;
 
-
-public class QCodeF {
+//This class is for the qr code format handler.  To decipher the displayed code.
+public class QCodeF
+{
+    //vars
     private int mId;
     private String mName;
 
+    //vars for each type of code format the reader can read.
     public static final QCodeF NONE = new QCodeF(Symbol.NONE, "NONE");
     public static final QCodeF PARTIAL = new QCodeF(Symbol.PARTIAL, "PARTIAL");
     public static final QCodeF EAN8 = new QCodeF(Symbol.EAN8, "EAN8");
@@ -28,9 +31,12 @@ public class QCodeF {
     public static final QCodeF CODE93 = new QCodeF(Symbol.CODE93, "CODE93");
     public static final QCodeF CODE128 = new QCodeF(Symbol.CODE128, "CODE128");
 
+    //array of code formats.
     public static final List<QCodeF> ALL_FORMATS = new ArrayList<QCodeF>();
 
-    static {
+    //all the code formats this program can read.
+    static
+    {
         ALL_FORMATS.add(QCodeF.PARTIAL);
         ALL_FORMATS.add(QCodeF.EAN8);
         ALL_FORMATS.add(QCodeF.UPCE);
@@ -49,22 +55,30 @@ public class QCodeF {
         ALL_FORMATS.add(QCodeF.CODE128);
     }
 
-    public QCodeF(int id, String name) {
+    //constructor.
+    public QCodeF(int id, String name)
+    {
         mId = id;
         mName = name;
     }
 
+    //id getter
     public int getId() {
         return mId;
     }
 
+    //name getter.
     public String getName() {
         return mName;
     }
 
-    public static QCodeF getFormatById(int id) {
-        for(QCodeF format : ALL_FORMATS) {
-            if(format.getId() == id) {
+    //get the code format id.
+    public static QCodeF getFormatById(int id)
+    {
+        for(QCodeF format : ALL_FORMATS)
+        {
+            if(format.getId() == id)
+            {
                 return format;
             }
         }

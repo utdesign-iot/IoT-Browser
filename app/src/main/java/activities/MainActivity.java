@@ -1,41 +1,41 @@
 package activities;
 
-import android.Manifest;
+import android.Manifest;//for qrcode
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.Intent;
+import android.content.Intent;//for qrcode
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.content.pm.PackageManager;//for qrcode
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.os.Bundle;
+import android.os.Bundle;//for qrcode
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityCompat;//for qrcode
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.content.ContextCompat;//for qrcode
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;//for qrcode
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;//for qrcode
+import android.view.Menu;//for qrcode
+import android.view.MenuItem;//for qrcode
+import android.view.View;//for qrcode
+import android.view.ViewGroup;//for qrcode
+import android.widget.Toast;//for qrcode
 
 import com.utdesign.iot.baseui.R;
 
@@ -51,7 +51,7 @@ import java.util.List;
 
 import fragments.ActionsFragment;
 import fragments.DevicesFragment;
-import qrcode.QRCSSMainActivity;
+import qrcode.QRCSSMainActivity;//for qrcode
 
 public class MainActivity extends AppCompatActivity {
     public final static String URL = "http://ecs.utdallas.edu";
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
     private static final String NEARBY_BEACONS_FRAGMENT_TAG = "NearbyBeaconsFragmentTag";
 
-    private static final int ZBAR_CAMERA_PERMISSION = 1;
-    private Class<?> mClss;
+    private static final int ZBAR_CAMERA_PERMISSION = 1;//for qrcode camera permission value.
+    private Class<?> mClss;//for qrcode generic class call for qr simple activity.
 
 
     @Override
@@ -214,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
             //THIS IS FOR THE QRCODE READER.
             case R.id.action_camera:
-
+                //toast message for qr reader activity call
                 Toast.makeText(MainActivity.this, "HELLO I READ QR CODES!!!", Toast.LENGTH_LONG).show();
-
+                //function call to launch qr reader activitty
                 launchActivity(QRCSSMainActivity.class);
-
+                //return true that qr activity launched.
                 return true;
             //END OF CAMERA ACTION SECTION.
 
@@ -398,35 +398,36 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean(getString(R.string.user_opted_in_flag), false);
     }
 
-    // THIS IS FOR THE QRCODE READER.
+    // THIS IS FOR THE QRCODE READER. This is just a generic function to launch any activity passed as args.
     public void launchActivity(Class<?> clss) {
+        //make sure have permission for camera.
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {//if no permission, then request camera.
             mClss = clss;
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, ZBAR_CAMERA_PERMISSION);
-        } else {
+        } else {//if all permissions are good then launch this activity.
             Intent intent = new Intent(this, clss);
             startActivity(intent);
         }
-    }
+    }//end of launchActiviy for qr reader code.
 
-    // THIS IS FOR THE QRCODE READER.
+    // THIS IS FOR THE QRCODE READER.  Request permission for camera function.
     @Override
     public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
         switch (requestCode) {
             case ZBAR_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(mClss != null) {
+                    if(mClss != null) {//if permission granted then launch the activity.
                         Intent intent = new Intent(this, mClss);
                         startActivity(intent);
                     }
-                } else {
+                } else {//if no permission, then message user to give camera permission in device settings.
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
                 return;
         }
-    }
+    }//end of onRequestPermissionsResult for qr reader code.
 
 
 }//end of main activity class.

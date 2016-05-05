@@ -19,14 +19,19 @@ import net.sourceforge.zbar.SymbolSet;
 import java.util.Collection;
 import java.util.List;
 
-public class QScanV extends QCodeScanV {
+
+//scan view handler class
+public class QScanV extends QCodeScanV
+{
     private static final String TAG = "ZBarScannerView";
 
-    public interface ResultHandler {
+    public interface ResultHandler
+    {
         public void handleResult(QResult rawQResult);
     }
 
-    static {
+    static
+    {
         System.loadLibrary("iconv");
     }
 
@@ -34,17 +39,23 @@ public class QScanV extends QCodeScanV {
     private List<QCodeF> mFormats;
     private ResultHandler mResultHandler;
 
-    public QScanV(Context context) {
+    //constructor1
+    public QScanV(Context context)
+    {
         super(context);
         setupScanner();
     }
 
-    public QScanV(Context context, AttributeSet attributeSet) {
+    //constructor2
+    public QScanV(Context context, AttributeSet attributeSet)
+    {
         super(context, attributeSet);
         setupScanner();
     }
 
-    public void setFormats(List<QCodeF> formats) {
+    //set up the format
+    public void setFormats(List<QCodeF> formats)
+    {
         mFormats = formats;
         setupScanner();
     }
@@ -53,39 +64,51 @@ public class QScanV extends QCodeScanV {
         mResultHandler = resultHandler;
     }
 
-    public Collection<QCodeF> getFormats() {
-        if(mFormats == null) {
+    //get all the formats needed for the camera view.
+    public Collection<QCodeF> getFormats()
+    {
+        if(mFormats == null)
+        {
             return QCodeF.ALL_FORMATS;
         }
         return mFormats;
     }
 
-    public void setupScanner() {
+    //set up the scanner.
+    public void setupScanner()
+    {
         mScanner = new ImageScanner();
         mScanner.setConfig(0, Config.X_DENSITY, 3);
         mScanner.setConfig(0, Config.Y_DENSITY, 3);
 
         mScanner.setConfig(Symbol.NONE, Config.ENABLE, 0);
-        for(QCodeF format : getFormats()) {
+        for(QCodeF format : getFormats())
+        {
             mScanner.setConfig(format.getId(), Config.ENABLE, 1);
         }
     }
 
+    //setup the preview frame
     @Override
-    public void onPreviewFrame(byte[] data, Camera camera) {
-        if(mResultHandler == null) {
+    public void onPreviewFrame(byte[] data, Camera camera)
+    {
+        if(mResultHandler == null)
+        {
             return;
         }
 
-        try {
+        try
+        {
             Camera.Parameters parameters = camera.getParameters();
             Camera.Size size = parameters.getPreviewSize();
             int width = size.width;
             int height = size.height;
 
-            if(QDispU.getScreenOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT) {
+            if(QDispU.getScreenOrientation(getContext()) == Configuration.ORIENTATION_PORTRAIT)
+            {
                 byte[] rotatedData = new byte[data.length];
-                for (int y = 0; y < height; y++) {
+                for (int y = 0; y < height; y++)
+                {
                     for (int x = 0; x < width; x++)
                         rotatedData[x * height + height - y - 1] = data[x + y * width];
                 }
@@ -100,12 +123,15 @@ public class QScanV extends QCodeScanV {
 
             int result = mScanner.scanImage(barcode);
 
-            if (result != 0) {
+            if (result != 0)
+            {
                 SymbolSet syms = mScanner.getResults();
                 final QResult rawQResult = new QResult();
-                for (Symbol sym : syms) {
+                for (Symbol sym : syms)
+                {
                     String symData = sym.getData();
-                    if (!TextUtils.isEmpty(symData)) {
+                    if (!TextUtils.isEmpty(symData))
+                    {
                         rawQResult.setContents(symData);
                         rawQResult.setBarcodeFormat(QCodeF.getFormatById(sym.getType()));
                         break;
@@ -113,9 +139,11 @@ public class QScanV extends QCodeScanV {
                 }
 
                 Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
+                handler.post(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         // Stopping the preview can take a little long.
                         // So we want to set result handler to null to discard subsequent calls to
                         // onPreviewFrame.
@@ -123,21 +151,28 @@ public class QScanV extends QCodeScanV {
                         mResultHandler = null;
                         
                         stopCameraPreview();
-                        if (tmpResultHandler != null) {
+                        if (tmpResultHandler != null)
+                        {
                             tmpResultHandler.handleResult(rawQResult);
                         }
                     }
                 });
-            } else {
+            }
+            else
+            {
                 camera.setOneShotPreviewCallback(this);
             }
-        } catch(RuntimeException e) {
+        }
+        catch(RuntimeException e)
+        {
             // TODO: Terrible hack. It is possible that this method is invoked after camera is released.
             Log.e(TAG, e.toString(), e);
         }
     }
 
-    public void resumeCameraPreview(ResultHandler resultHandler) {
+    //on resume do this.
+    public void resumeCameraPreview(ResultHandler resultHandler)
+    {
         mResultHandler = resultHandler;
         super.resumeCameraPreview();
     }

@@ -5,29 +5,38 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-//Hey this is Lance Commenting.
-// This code is mostly based on the top answer here: http://stackoverflow.com/questions/18149964/best-use-of-handlerthread-over-other-similar-classes
-public class QCamHndT extends HandlerThread {
-    private static final String LOG_TAG = "QCamHndT";
 
+//this is the handler for the camera thread since the camera in and output is handled in the background off of main thread.
+public class QCamHndT extends HandlerThread
+{
+    //vars
+    private static final String LOG_TAG = "QCamHndT";
     private QCodeScanV mScannerView;
 
-    public QCamHndT(QCodeScanV scannerView) {
+    //contructor
+    public QCamHndT(QCodeScanV scannerView)
+    {
         super("QCamHndT");
         mScannerView = scannerView;
         start();
     }
 
-    public void startCamera(final int cameraId) {
+    //when start camera do this.
+    public void startCamera(final int cameraId)
+    {
         Handler localHandler = new Handler(getLooper());
-        localHandler.post(new Runnable() {
+        localHandler.post(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 final Camera camera = QCamU.getCameraInstance(cameraId);
                 Handler mainHandler = new Handler(Looper.getMainLooper());
-                mainHandler.post(new Runnable() {
+                mainHandler.post(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         mScannerView.setupCameraPreview(camera);
                     }
                 });

@@ -12,7 +12,10 @@ import android.view.View;
 
 import com.utdesign.iot.baseui.R;
 
-public class QVwFV extends View implements QIVwF {
+
+// THIS IS JUST TO ENSURE THE SCANNER VIEW IS ALL TIED TO THE CAMERA.
+public class QVwFV extends View implements QIVwF
+{
     private static final String TAG = "ViewFinderView";
 
     private Rect mFramingRect;
@@ -35,6 +38,7 @@ public class QVwFV extends View implements QIVwF {
     private static final int POINT_SIZE = 10;
     private static final long ANIMATION_DELAY = 80l;
 
+    //colors are important here or you will see a black screen.
     private final int mDefaultLaserColor = getResources().getColor(R.color.viewfinder_laser);
     private final int mDefaultMaskColor = getResources().getColor(R.color.viewfinder_mask);
     private final int mDefaultBorderColor = getResources().getColor(R.color.viewfinder_border);
@@ -46,17 +50,26 @@ public class QVwFV extends View implements QIVwF {
     protected Paint mBorderPaint;
     protected int mBorderLineLength;
 
-    public QVwFV(Context context) {
+
+    //constructor
+    public QVwFV(Context context)
+    {
         super(context);
         init();
     }
 
-    public QVwFV(Context context, AttributeSet attrs) {
+
+    //constructor
+    public QVwFV(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         init();
     }
 
-    private void init() {
+
+    //initialize this operation.
+    private void init()
+    {
         //set up laser paint
         mLaserPaint = new Paint();
         mLaserPaint.setColor(mDefaultLaserColor);
@@ -75,6 +88,8 @@ public class QVwFV extends View implements QIVwF {
         mBorderLineLength = mDefaultBorderLineLength;
     }
 
+
+
     public void setLaserColor(int laserColor) {
         mLaserPaint.setColor(laserColor);
     }
@@ -84,25 +99,42 @@ public class QVwFV extends View implements QIVwF {
     public void setBorderColor(int borderColor) {
         mBorderPaint.setColor(borderColor);
     }
-    public void setBorderStrokeWidth(int borderStrokeWidth) {
+
+
+
+    //set border width
+    public void setBorderStrokeWidth(int borderStrokeWidth)
+    {
         mBorderPaint.setStrokeWidth(borderStrokeWidth);
     }
+
+
+    //set the borders.
     public void setBorderLineLength(int borderLineLength) {
         mBorderLineLength = borderLineLength;
     }
 
-    public void setupViewFinder() {
+
+    //setup the view
+    public void setupViewFinder()
+    {
         updateFramingRect();
         invalidate();
     }
 
+
+    //retur the rectangle.
     public Rect getFramingRect() {
         return mFramingRect;
     }
 
+
+    //when start drawing do this
     @Override
-    public void onDraw(Canvas canvas) {
-        if(mFramingRect == null) {
+    public void onDraw(Canvas canvas)
+    {
+        if(mFramingRect == null)
+        {
             return;
         }
 
@@ -111,7 +143,10 @@ public class QVwFV extends View implements QIVwF {
         drawLaser(canvas);
     }
 
-    public void drawViewFinderMask(Canvas canvas) {
+
+    //draw the finder mask
+    public void drawViewFinderMask(Canvas canvas)
+    {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
@@ -121,7 +156,11 @@ public class QVwFV extends View implements QIVwF {
         canvas.drawRect(0, mFramingRect.bottom + 1, width, height, mFinderMaskPaint);
     }
 
-    public void drawViewFinderBorder(Canvas canvas) {
+
+
+    //find the borders
+    public void drawViewFinderBorder(Canvas canvas)
+    {
         canvas.drawLine(mFramingRect.left - 1, mFramingRect.top - 1, mFramingRect.left - 1, mFramingRect.top - 1 + mBorderLineLength, mBorderPaint);
         canvas.drawLine(mFramingRect.left - 1, mFramingRect.top - 1, mFramingRect.left - 1 + mBorderLineLength, mFramingRect.top - 1, mBorderPaint);
 
@@ -135,7 +174,11 @@ public class QVwFV extends View implements QIVwF {
         canvas.drawLine(mFramingRect.right + 1, mFramingRect.bottom + 1, mFramingRect.right + 1 - mBorderLineLength, mFramingRect.bottom + 1, mBorderPaint);
     }
 
-    public void drawLaser(Canvas canvas) {
+
+
+    //draw the red laser across the scanner view.
+    public void drawLaser(Canvas canvas)
+    {
         // Draw a red "laser scanner" line through the middle to show decoding is active
         mLaserPaint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
         scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
@@ -149,21 +192,31 @@ public class QVwFV extends View implements QIVwF {
                 mFramingRect.bottom + POINT_SIZE);
     }
 
+
+
+
+    //if the size changes.
     @Override
     protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
         updateFramingRect();
     }
 
-    public synchronized void updateFramingRect() {
+
+    //update the frame of the rectangle.
+    public synchronized void updateFramingRect()
+    {
         Point viewResolution = new Point(getWidth(), getHeight());
         int width;
         int height;
         int orientation = QDispU.getScreenOrientation(getContext());
 
-        if(orientation != Configuration.ORIENTATION_PORTRAIT) {
+        if(orientation != Configuration.ORIENTATION_PORTRAIT)
+        {
             width = findDesiredDimensionInRange(LANDSCAPE_WIDTH_RATIO, viewResolution.x, MIN_FRAME_WIDTH, LANDSCAPE_MAX_FRAME_WIDTH);
             height = findDesiredDimensionInRange(LANDSCAPE_HEIGHT_RATIO, viewResolution.y, MIN_FRAME_HEIGHT, LANDSCAPE_MAX_FRAME_HEIGHT);
-        } else {
+        }
+        else
+        {
             width = findDesiredDimensionInRange(PORTRAIT_WIDTH_RATIO, viewResolution.x, MIN_FRAME_WIDTH, PORTRAIT_MAX_FRAME_WIDTH);
             height = findDesiredDimensionInRange(PORTRAIT_HEIGHT_RATIO, viewResolution.y, MIN_FRAME_HEIGHT, PORTRAIT_MAX_FRAME_HEIGHT);
         }
@@ -173,12 +226,17 @@ public class QVwFV extends View implements QIVwF {
         mFramingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
     }
 
-    private static int findDesiredDimensionInRange(float ratio, int resolution, int hardMin, int hardMax) {
+
+    //look for the desired dimensions for the view.
+    private static int findDesiredDimensionInRange(float ratio, int resolution, int hardMin, int hardMax)
+    {
         int dim = (int) (ratio * resolution);
-        if (dim < hardMin) {
+        if (dim < hardMin)
+        {
             return hardMin;
         }
-        if (dim > hardMax) {
+        if (dim > hardMax)
+        {
             return hardMax;
         }
         return dim;

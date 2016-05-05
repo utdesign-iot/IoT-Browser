@@ -9,29 +9,41 @@ import android.support.v4.app.DialogFragment;
 
 import com.utdesign.iot.baseui.R;
 
-public class QRCCSDFragment extends DialogFragment {
-    public interface CameraSelectorDialogListener {
+//FOR FUTURE IMPLEMENTATION.
+public class QRCCSDFragment extends DialogFragment
+{
+    public interface CameraSelectorDialogListener
+    {
         public void onCameraSelected(int cameraId);
     }
 
     private int mCameraId;
     private CameraSelectorDialogListener mListener;
 
-    public void onCreate(Bundle state) {
+
+    public void onCreate(Bundle state)
+    {
         super.onCreate(state);
         setRetainInstance(true);
     }
 
-    public static QRCCSDFragment newInstance(CameraSelectorDialogListener listener, int cameraId) {
+
+    public static QRCCSDFragment newInstance(CameraSelectorDialogListener listener, int cameraId)
+    {
         QRCCSDFragment fragment = new QRCCSDFragment();
         fragment.mCameraId = cameraId;
         fragment.mListener = listener;
         return fragment;
     }
 
+
+    //DIALOG CREATED ON START.
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if(mListener == null) {
+    public Dialog onCreateDialog(Bundle savedInstanceState)
+    {
+        //CAMERA LISTENER
+        if(mListener == null)
+        {
             dismiss();
             return null;
         }
@@ -40,48 +52,66 @@ public class QRCCSDFragment extends DialogFragment {
         String[] cameraNames = new String[numberOfCameras];
         int checkedIndex = 0;
 
-        for (int i = 0; i < numberOfCameras; i++) {
+        //FINDING NUMBER OF CAMERAS.
+        for (int i = 0; i < numberOfCameras; i++)
+        {
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(i, info);
-            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
+            {
                 cameraNames[i] = "Front Facing";
-            } else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            }
+            else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK)
+            {
                 cameraNames[i] = "Rear Facing";
-            } else {
+            }
+            else
+            {
                 cameraNames[i] = "Camera ID: " + i;
             }
-            if(i == mCameraId) {
+            if(i == mCameraId)
+            {
                 checkedIndex = i;
             }
         }
 
+        //ALERT GETTING NEW ACTIVITY.
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
 
+        //ALERT BUILDER.
         final AlertDialog.Builder builder1 = builder.setTitle(R.string.select_camera)
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
                 .setSingleChoiceItems(cameraNames, checkedIndex,
-                        new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
                                 mCameraId = which;
                             }
                         })
                         // Set the action buttons
-                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                         // User clicked OK, so save the mSelectedIndices results somewhere
                         // or return them to the component that opened the dialog
-                        if (mListener != null) {
+                        if (mListener != null)
+                        {
                             mListener.onCameraSelected(mCameraId);
                         }
                     }
                 })
-                .setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        //DO NOTING.
                     }
                 });
 
