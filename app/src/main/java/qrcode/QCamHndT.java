@@ -5,7 +5,7 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-
+//Hey this is Lance Commenting.
 // This code is mostly based on the top answer here: http://stackoverflow.com/questions/18149964/best-use-of-handlerthread-over-other-similar-classes
 public class QCamHndT extends HandlerThread {
     private static final String LOG_TAG = "QCamHndT";
