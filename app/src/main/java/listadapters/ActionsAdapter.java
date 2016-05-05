@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import listitems.Action;
 
+// this adapter manages the actions tab
 public class ActionsAdapter extends BaseAdapter implements Filterable{
 
     private Context context;
@@ -56,6 +57,7 @@ public class ActionsAdapter extends BaseAdapter implements Filterable{
             view = layoutInflater.inflate(R.layout.actions_row_model, null);
         }
 
+        // set alternating rows to grey
         if (position % 2 == 1) { view.setBackgroundColor(Color.rgb(237, 237, 237)); }
 
         TextView actionView = (TextView) view.findViewById(R.id.action_title);

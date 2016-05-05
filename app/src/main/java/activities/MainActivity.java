@@ -80,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar); // creates the toolbar
         setSupportActionBar(mToolbar);
-        actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar(); // creates the actionbar
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); // creates the nav drawer layout
 
         // this initializes the navigation drawer.
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -108,25 +108,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(findViewById(R.id.coordinator), "I'm a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MainActivity.this, "Snackbar Action", Toast.LENGTH_LONG).show();
-                    }
-                }).show();
-            }
-        });
-        */
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        devicesFragment = new DevicesFragment();
-        actionsFragment = new ActionsFragment();
-        adapter.addFragment(devicesFragment, "Devices");
-        adapter.addFragment(actionsFragment, "Actions");
+        devicesFragment = new DevicesFragment(); // instantiate the DevicesFragment
+        actionsFragment = new ActionsFragment(); // instantiate the ActionsFragment
+        adapter.addFragment(devicesFragment, "Devices"); // add DevicesFragment to view
+        adapter.addFragment(actionsFragment, "Actions"); // add ActionsFragment to view
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setAdapter(adapter);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
@@ -162,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // checks if bluetooth is enabled.
+    // checks if bluetooth is enabled.  If not instantiates a new Bluetooth adapter object
     private void ensureBluetoothIsEnabled(BluetoothAdapter bluetoothAdapter) {
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -222,19 +208,20 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             //END OF CAMERA ACTION SECTION.
 
-            case R.id.action_settings:
+            case R.id.action_settings: // placeholder for settings
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.action_edit_urls:
+            case R.id.action_edit_urls: // placeholder for edit urls
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.action_about:
+            case R.id.action_about: // launch about activity
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // this class manages the views and fragments
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -276,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             IntentFilter[] intentFilters = new IntentFilter[]{};
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
         }
-
+        // check device for bluetooth
         BluetoothManager btManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         BluetoothAdapter btAdapter = btManager != null ? btManager.getAdapter() : null;
         if (btAdapter == null) {
@@ -287,13 +274,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ensureBluetoothIsEnabled(btAdapter);
+        // instantiate the Physical Web nearby beacons fragment
         getFragmentManager().beginTransaction()
                 .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
                 .commit();
         getFragmentManager().executePendingTransactions();
         nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
         nearbyAdapter = nearbyBeaconsFragment.getAdapter();
-        nearbyList = nearbyAdapter.getList();
+        //nearbyList = nearbyAdapter.getList();
 
         if(devicesFragment.getAdapter() == null)
             devicesFragment.setAdapter(nearbyAdapter);
@@ -360,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
         return tagContent;
     }
 
+    // This is a legacy function from the Physical Web
     private void showNearbyBeaconsFragment() {
         // Look for an instance of the nearby beacons fragment
         android.app.Fragment nearbyBeaconsFragment =
@@ -381,6 +370,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // This function creates a new instance of the AboutFragment and displays to the user
     private void showAboutFragment() {
         AboutFragment aboutFragment = AboutFragment.newInstance();
         getFragmentManager().beginTransaction()
@@ -391,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    // This is a legacy function from the Physical Web
     private boolean checkIfUserHasOptedIn() {
         String preferencesKey = getString(R.string.main_prefs_key);
         SharedPreferences sharedPreferences = getSharedPreferences(preferencesKey,

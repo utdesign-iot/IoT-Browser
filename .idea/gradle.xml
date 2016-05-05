@@ -17,6 +17,16 @@
             <option value="$PROJECT_DIR$/zbar" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/libs" />
+            <option value="$PROJECT_DIR$/uribeacon-library-release" />
+            <option value="$PROJECT_DIR$/volley" />
+            <option value="$PROJECT_DIR$/zbar" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
